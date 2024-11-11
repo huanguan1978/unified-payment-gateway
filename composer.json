@@ -1,0 +1,27 @@
+{
+    "name": "siddik-web/unified-payment-gateway",
+    "description": "A unified payment gateway for PayPal and Stripe integrations in PHP",
+    "type": "library",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "guzzlehttp/guzzle": "^7.0 || ^8.0",
+        "stripe/stripe-php": "^16.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "UnifiedPaymentGateway\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md Siddiqur Rahman",
+            "email": "siddikcoder@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require-dev": {
+        "phpunit/phpunit": "^11.4"
+    }
+}
