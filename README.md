@@ -47,7 +47,7 @@ return [
 To start using the library, create an instance of `UnifiedPaymentClient` through the `UnifiedPaymentFactory`.
 
 ```php
-use Anthropic\UnifiedPayment\UnifiedPaymentFactory;
+use UnifiedPaymentGateway\UnifiedPaymentFactory;
 
 $config = include 'config/payment_config.php';
 $paymentClient = UnifiedPaymentFactory::createPaymentClient($config);
@@ -113,17 +113,16 @@ The main files and folders in this package include:
 
 ```
 src/
-├── Anthropic/
-│   ├── PayPalApi/
-│   ├── StripeApi/
-│   └── UnifiedPayment/
+├── PayPalApi/
+├── StripeApi/
+└── UnifiedPayment/
 config/
 └── payment_config.php  # Configuration file example
 ```
 
-- `src/Anthropic/PayPalApi`: Contains classes for managing PayPal-specific functionality.
-- `src/Anthropic/StripeApi`: Contains classes for managing Stripe-specific functionality.
-- `src/Anthropic/UnifiedPayment`: Contains classes for unified payment management.
+- `src/PayPalApi`: Contains classes for managing PayPal-specific functionality.
+- `src/StripeApi`: Contains classes for managing Stripe-specific functionality.
+- `src/UnifiedPayment`: Contains classes for unified payment management.
 
 ## Requirements
 
