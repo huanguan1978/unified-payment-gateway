@@ -45,6 +45,12 @@ class StripeTokenProvider
      */
     public function getAccessToken()
     {
+        // Check if sandbox mode is enabled
+        if (!empty($this->config['sandbox']) && $this->config['sandbox'] === true) {
+            // Return the sandbox API key
+            return $this->config['sandbox_api_key'];
+        }
+        
         // Stripe typically uses API keys instead of OAuth tokens
         return $this->config['api_key'];
     }

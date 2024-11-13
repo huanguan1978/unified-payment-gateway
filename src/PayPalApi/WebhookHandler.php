@@ -120,7 +120,11 @@ class WebhookHandler
         ];
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/notifications/verify-webhook-signature');
+        $url = $this->config['sandbox_mode'] ?? false 
+            ? 'https://api.sandbox.paypal.com/v1/notifications/verify-webhook-signature' 
+            : 'https://api.paypal.com/v1/notifications/verify-webhook-signature';
+        
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($signatureVerification));
