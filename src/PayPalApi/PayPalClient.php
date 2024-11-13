@@ -70,6 +70,13 @@ class PayPalClient implements PayPalApiInterface
     private $disputeProvider;
 
     /**
+     * @var bool
+     * @description Whether to use sandbox mode
+     * @since 1.0.0
+     */
+    private $isSandbox = false;
+
+    /**
      * @method __construct
      * @param array $config Configuration for the PayPal client.
      * @description The constructor for the PayPal client.
@@ -77,6 +84,8 @@ class PayPalClient implements PayPalApiInterface
      */
     public function __construct(array $config)
     {
+        $this->isSandbox = isset($config['sandbox']) && $config['sandbox'] === true;
+
         // Initialize the token provider.   
         $this->tokenProvider = new TokenProvider($config);
         $accessToken = $this->tokenProvider->getAccessToken();
@@ -128,7 +137,8 @@ class PayPalClient implements PayPalApiInterface
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/payments/payment/{$paymentId}/capture");
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/payments/payment/{$paymentId}/capture");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -154,7 +164,8 @@ class PayPalClient implements PayPalApiInterface
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/payments/sale/{$paymentId}/refund");
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/payments/sale/{$paymentId}/refund");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($refundData));
@@ -193,7 +204,8 @@ class PayPalClient implements PayPalApiInterface
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/billing/subscriptions/{$subscriptionId}");
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/billing/subscriptions/{$subscriptionId}");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($subscriptionData));
@@ -219,7 +231,8 @@ class PayPalClient implements PayPalApiInterface
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/billing/subscriptions/{$subscriptionId}/cancel");
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/billing/subscriptions/{$subscriptionId}/cancel");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -256,7 +269,8 @@ class PayPalClient implements PayPalApiInterface
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/customer/disputes/{$disputeId}");
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/customer/disputes/{$disputeId}");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",

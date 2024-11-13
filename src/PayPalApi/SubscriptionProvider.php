@@ -111,7 +111,8 @@ class SubscriptionProvider
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/billing/subscriptions");
+        $baseUrl = $this->config['sandbox'] ? "https://api.sandbox.paypal.com" : "https://api.paypal.com";
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/billing/subscriptions");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($subscriptionPayload));
@@ -149,7 +150,8 @@ class SubscriptionProvider
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/billing/subscriptions/{$subscriptionId}");
+        $baseUrl = $this->config['sandbox'] ? "https://api.sandbox.paypal.com" : "https://api.paypal.com";
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/billing/subscriptions/{$subscriptionId}");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($subscriptionData));
@@ -189,7 +191,8 @@ class SubscriptionProvider
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/billing/subscriptions/{$subscriptionId}/cancel");
+        $baseUrl = $this->config['sandbox'] ? "https://api.sandbox.paypal.com" : "https://api.paypal.com";
+        curl_setopt($ch, CURLOPT_URL, "{$baseUrl}/v1/billing/subscriptions/{$subscriptionId}/cancel");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));

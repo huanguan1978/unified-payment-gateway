@@ -52,6 +52,11 @@ class StripeWebhookHandler
         }
         $this->config = $config;
         $this->eventHandler = $eventHandler;
+
+        // Check if sandbox mode is enabled
+        if (isset($config['sandbox']) && $config['sandbox'] === true) {
+            $this->config['stripe_webhook_secret'] = $config['sandbox_webhook_secret'] ?? $this->config['stripe_webhook_secret'];
+        }
     }
 
     /**

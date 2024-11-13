@@ -57,7 +57,8 @@ class DisputeProvider
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/customer/disputes");
+        $url = $this->config['sandbox'] ? "https://api.sandbox.paypal.com/v1/customer/disputes" : "https://api.paypal.com/v1/customer/disputes";
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
@@ -81,7 +82,8 @@ class DisputeProvider
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/customer/disputes/{$disputeId}");
+        $url = $this->config['sandbox'] ? "https://api.sandbox.paypal.com/v1/customer/disputes/{$disputeId}" : "https://api.paypal.com/v1/customer/disputes/{$disputeId}";
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
@@ -105,7 +107,8 @@ class DisputeProvider
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/customer/disputes/{$disputeId}/accept-claim");
+        $url = $this->config['sandbox'] ? "https://api.sandbox.paypal.com/v1/customer/disputes/{$disputeId}/accept-claim" : "https://api.paypal.com/v1/customer/disputes/{$disputeId}/accept-claim";
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -131,7 +134,8 @@ class DisputeProvider
     {
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/customer/disputes/{$disputeId}/provide-supporting-info");
+        $url = $this->config['sandbox'] ? "https://api.sandbox.paypal.com/v1/customer/disputes/{$disputeId}/provide-supporting-info" : "https://api.paypal.com/v1/customer/disputes/{$disputeId}/provide-supporting-info";
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($evidence));

@@ -14,12 +14,14 @@ return [
     'paypal' => [
         'client_id' => 'your_paypal_client_id',
         'client_secret' => 'your_paypal_secret',
-        'environment' => 'sandbox',
+        'sandbox' => true,
         'webhook_url' => 'https://example.com/paypal/webhook'
     ],
     'stripe' => [
         'api_key' => 'your_stripe_secret_key',
-        'webhook_secret' => 'your_stripe_webhook_secret'
+        'sandbox_api_key' => 'your_stripe_sandbox_secret_key',
+        'webhook_secret' => 'your_stripe_webhook_secret',
+        'sandbox' => true
     ],
     'default_provider' => 'stripe'
 ];

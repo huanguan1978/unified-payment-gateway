@@ -41,6 +41,13 @@ class TokenProvider
     private $tokenExpiration = null;
 
     /**
+     * @var bool
+     * @description Whether to use sandbox mode
+     * @since 1.0.0
+     */
+    private $isSandbox = false;
+
+    /**
      * @method __construct
      * @param array $config Configuration for the token provider.
      * @description The constructor for the token provider.
@@ -52,6 +59,7 @@ class TokenProvider
             throw new \InvalidArgumentException('PayPal client_id and client_secret are required');
         }
         $this->config = $config;
+        $this->isSandbox = isset($config['sandbox']) && $config['sandbox'] === true;
     }
 
     /**
@@ -70,7 +78,8 @@ class TokenProvider
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://api.paypal.com/v1/oauth2/token');
+        $baseUrl = $this->isSandbox ? 'https://api.sandbox.paypal.com' : 'https://api.paypal.com';
+        curl_setopt($ch, CURLOPT_URL, $baseUrl . '/v1/oauth2/token');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, 'grant_type=client_credentials');

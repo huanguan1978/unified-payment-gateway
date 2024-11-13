@@ -107,7 +107,9 @@ class PaymentProvider
 
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, "https://api.paypal.com/v1/payments/payment");
+        // Use sandbox URL if configured
+        $url = $this->config['sandbox'] ? "https://api.sandbox.paypal.com/v1/payments/payment" : "https://api.paypal.com/v1/payments/payment";
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($paymentPayload));
