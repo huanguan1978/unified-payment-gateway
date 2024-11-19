@@ -62,6 +62,19 @@ class PayPalPaymentGateway implements UnifiedPaymentGateway
     }
 
     /**
+     * @method executePaymentIntent
+     * @param string $paymentId Payment ID for the payment provider.
+     * @param string $payerId Payer ID for the payment provider.
+     * @description Capture a payment intent with the payment provider.
+     * @since 1.0.0
+     */
+    public function executePaymentIntent($paymentId, $payerId)
+    {
+        return $this->payPalClient->executePayment($paymentId, $payerId);
+    }
+
+
+    /**
      * @method refundPayment
      * @param string $paymentId Payment ID for the payment provider.
      * @param array $refundData Refund data for the payment provider.
