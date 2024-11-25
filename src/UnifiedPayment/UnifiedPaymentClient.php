@@ -24,7 +24,7 @@ class UnifiedPaymentClient
      * @description The payment gateway for the unified payment client.
      * @since 1.0.0
      */
-    private $paymentGateway;
+    public $paymentGateway;
 
     /**
      * @method __construct
